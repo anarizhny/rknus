@@ -1,0 +1,688 @@
+/* ============================================
+   RKNus — Options Page Styles
+   Sprint 4: UI-S4-01 — UI-S4-04
+   ============================================ */
+
+/* --- Design Tokens (reused from popup.css, UI-S2-01) --- */
+:root {
+  /* Colors */
+  --color-primary: #3B82F6;
+  --color-primary-hover: #2563EB;
+  --color-blocked: #EF4444;
+  --color-blocked-bg: #FEF2F2;
+  --color-blocked-border: #FECACA;
+  --color-clean: #22C55E;
+  --color-clean-bg: #F0FDF4;
+  --color-clean-border: #BBF7D0;
+  --color-loading: #6B7280;
+  --color-error: #F59E0B;
+  --color-error-bg: #FFFBEB;
+  --color-bg: #FFFFFF;
+  --color-bg-page: #F9FAFB;
+  --color-text: #111827;
+  --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
+  --color-border: #E5E7EB;
+  --color-btn-border: #D1D5DB;
+  --color-btn-hover-bg: #F3F4F6;
+  --color-btn-active-bg: #E5E7EB;
+  --color-input-bg: #FFFFFF;
+  --color-input-border: #D1D5DB;
+  --color-input-focus: #3B82F6;
+
+  /* Toggle */
+  --color-toggle-off: #D1D5DB;
+  --color-toggle-on: #22C55E;
+
+  /* Typography */
+  --font-base: 14px;
+  --font-sm: 12px;
+  --font-xs: 11px;
+  --font-title: 20px;
+  --font-section: 12px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-section-gap: 16px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  /* Sizes */
+  --options-max-width: 600px;
+  --toggle-width: 40px;
+  --toggle-height: 22px;
+  --toggle-thumb: 18px;
+}
+
+/* --- CSS Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Base --- */
+html {
+  font-size: var(--font-base);
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-base);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Page Layout --- */
+.options {
+  max-width: var(--options-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+}
+
+/* --- Header --- */
+.options__header {
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.options__title {
+  font-size: var(--font-title);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+/* --- Section Cards --- */
+.options__section {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-section-gap);
+}
+
+.options__section-title {
+  font-size: var(--font-section);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.options__section-hint {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.4;
+}
+
+/* --- Control Row (label + control side by side) --- */
+.options__control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.options__label {
+  font-size: var(--font-base);
+  color: var(--color-text);
+  font-weight: 500;
+  flex: 1;
+}
+
+/* ==================================================
+   Radio Group (UI-S4-03)
+   ================================================== */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.radio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  position: relative;
+}
+
+.radio:hover {
+  background-color: var(--color-btn-hover-bg);
+}
+
+.radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.radio__mark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-btn-border);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 150ms ease;
+  margin-top: 1px;
+}
+
+.radio__mark::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  transform: scale(0);
+  transition: transform 150ms ease;
+}
+
+.radio input[type="radio"]:checked ~ .radio__mark {
+  border-color: var(--color-primary);
+}
+
+.radio input[type="radio"]:checked ~ .radio__mark::after {
+  transform: scale(1);
+}
+
+.radio input[type="radio"]:focus-visible ~ .radio__mark {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.radio__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radio__label {
+  font-size: var(--font-base);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.radio__description {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  line-height: 1.3;
+}
+
+/* --- Custom URL Input (conditional) --- */
+.options__custom-url {
+  margin-left: 42px;
+  margin-top: var(--spacing-xs);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 150ms ease, opacity 150ms ease, margin 150ms ease;
+}
+
+/* Show when custom radio is selected — controlled via JS adding class or :has() */
+.radio-group:has(input[value="custom"]:checked) ~ .options__custom-url,
+.options__custom-url.is-visible {
+  max-height: 80px;
+  opacity: 1;
+  margin-top: var(--spacing-sm);
+}
+
+/* Fallback: custom-url inside radio-group */
+.radio-group .options__custom-url {
+  margin-left: 42px;
+}
+
+.radio-group:has(input[value="custom"]:checked) .options__custom-url {
+  max-height: 80px;
+  opacity: 1;
+  margin-top: var(--spacing-sm);
+}
+
+.options__input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-family);
+  font-size: var(--font-base);
+  color: var(--color-text);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.options__input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.options__input:focus {
+  border-color: var(--color-input-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.options__input--error {
+  border-color: var(--color-blocked);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.options__input-error {
+  font-size: var(--font-xs);
+  color: var(--color-blocked);
+  margin-top: var(--spacing-xs);
+}
+
+/* ==================================================
+   Select (UI-S4-03)
+   ================================================== */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.options__select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: var(--spacing-sm) 36px var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-family);
+  font-size: var(--font-base);
+  color: var(--color-text);
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  outline: none;
+  min-width: 200px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.options__select:focus {
+  border-color: var(--color-input-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.options__select:hover {
+  border-color: var(--color-text-secondary);
+}
+
+/* ==================================================
+   Toggle Switch (UI-S4-03)
+   ================================================== */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.toggle input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.toggle__track {
+  position: relative;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  background-color: var(--color-toggle-off);
+  border-radius: var(--radius-full);
+  transition: background-color 200ms ease-in-out;
+  flex-shrink: 0;
+}
+
+.toggle__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: var(--toggle-thumb);
+  height: var(--toggle-thumb);
+  background: #FFFFFF;
+  border-radius: var(--radius-full);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 200ms ease-in-out;
+}
+
+.toggle input[type="checkbox"]:checked ~ .toggle__track {
+  background-color: var(--color-toggle-on);
+}
+
+.toggle input[type="checkbox"]:checked ~ .toggle__track .toggle__thumb {
+  transform: translateX(calc(var(--toggle-width) - var(--toggle-thumb) - 4px));
+}
+
+.toggle input[type="checkbox"]:focus-visible ~ .toggle__track {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.toggle__label {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-secondary);
+  min-width: 32px;
+}
+
+.toggle__label::after {
+  content: attr(data-off);
+}
+
+.toggle input[type="checkbox"]:checked ~ .toggle__label::after {
+  content: attr(data-on);
+}
+
+/* ==================================================
+   Database Management (Section 6)
+   ================================================== */
+.options__db-status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: var(--color-btn-hover-bg);
+  border-radius: var(--radius-md);
+}
+
+.options__db-count {
+  font-size: var(--font-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.options__db-updated {
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.options__btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.options__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-family);
+  font-size: var(--font-base);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease,
+              color 150ms ease, box-shadow 150ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: var(--shadow-btn);
+}
+
+.options__btn:active {
+  box-shadow: none;
+}
+
+/* Primary (Обновить сейчас) */
+.options__btn--primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+.options__btn--primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.options__btn--primary:active {
+  background-color: #1D4ED8;
+}
+
+/* Danger (Очистить базу) */
+.options__btn--danger {
+  background-color: transparent;
+  color: var(--color-blocked);
+  border-color: var(--color-blocked);
+}
+
+.options__btn--danger:hover {
+  background-color: var(--color-blocked);
+  color: #FFFFFF;
+}
+
+.options__btn--danger:active {
+  background-color: #DC2626;
+  color: #FFFFFF;
+}
+
+/* Ghost (Экспорт / Импорт) */
+.options__btn--ghost {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-btn-border);
+}
+
+.options__btn--ghost:hover {
+  background-color: var(--color-btn-hover-bg);
+  border-color: var(--color-primary);
+}
+
+.options__btn--ghost:active {
+  background-color: var(--color-btn-active-bg);
+}
+
+/* ==================================================
+   Footer
+   ================================================== */
+.options__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-2xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+}
+
+.options__footer-sep {
+  color: var(--color-border);
+}
+
+.options__link {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.options__link:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+/* ==================================================
+   Toast
+   ================================================== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================================================
+   Dark Theme (UI-S4-04)
+   ================================================== */
+
+/* Dark theme variables */
+[data-theme="dark"],
+:root.theme-dark {
+  --color-bg: #1F2937;
+  --color-bg-page: #111827;
+  --color-text: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  --color-text-tertiary: #6B7280;
+  --color-border: #374151;
+  --color-btn-border: #4B5563;
+  --color-btn-hover-bg: #374151;
+  --color-btn-active-bg: #4B5563;
+  --color-input-bg: #1F2937;
+  --color-input-border: #4B5563;
+  --color-toggle-off: #4B5563;
+
+  --color-blocked: #F87171;
+  --color-blocked-bg: rgba(239, 68, 68, 0.12);
+  --color-blocked-border: rgba(239, 68, 68, 0.25);
+
+  --color-clean: #4ADE80;
+  --color-clean-bg: rgba(34, 197, 94, 0.12);
+  --color-clean-border: rgba(34, 197, 94, 0.25);
+
+  --color-loading: #9CA3AF;
+  --color-error: #FBBF24;
+  --color-error-bg: rgba(245, 158, 11, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* System theme via prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"],
+  :root:not([data-theme]) {
+    --color-bg: #1F2937;
+    --color-bg-page: #111827;
+    --color-text: #F9FAFB;
+    --color-text-secondary: #9CA3AF;
+    --color-text-tertiary: #6B7280;
+    --color-border: #374151;
+    --color-btn-border: #4B5563;
+    --color-btn-hover-bg: #374151;
+    --color-btn-active-bg: #4B5563;
+    --color-input-bg: #1F2937;
+    --color-input-border: #4B5563;
+    --color-toggle-off: #4B5563;
+
+    --color-blocked: #F87171;
+    --color-blocked-bg: rgba(239, 68, 68, 0.12);
+    --color-blocked-border: rgba(239, 68, 68, 0.25);
+
+    --color-clean: #4ADE80;
+    --color-clean-bg: rgba(34, 197, 94, 0.12);
+    --color-clean-border: rgba(34, 197, 94, 0.25);
+
+    --color-loading: #9CA3AF;
+    --color-error: #FBBF24;
+    --color-error-bg: rgba(245, 158, 11, 0.12);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3);
+    --shadow-btn: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Dark-mode specific overrides for select options */
+  [data-theme="system"] .options__select option,
+  :root:not([data-theme]) .options__select option {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+}
+
+/* Forced dark mode select options */
+[data-theme="dark"] .options__select option {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ==================================================
+   Responsive: stack buttons on narrow screens
+   ================================================== */
+@media (max-width: 400px) {
+  .options {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .options__btn-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .options__control-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .options__select {
+    min-width: unset;
+    width: 100%;
+  }
+}

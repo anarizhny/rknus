@@ -1,0 +1,13 @@
+/**
+ * Content Script styles — applied to host page.
+ * Only minimal styles for link highlighting.
+ * Banner/tooltip styles live inside Shadow DOM (injected via JS).
+ */
+
+/* Blocked link highlight */
+a[data-rknus-blocked="true"] {
+  outline: 2px solid #EF4444 !important;
+  outline-offset: 1px;
+  text-decoration: underline wavy #EF4444 !important;
+  position: relative;
+}

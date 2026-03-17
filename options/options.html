@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Настройки — RKNus</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main class="options">
+    <header class="options__header">
+      <h1 class="options__title">RKNus — Настройки</h1>
+    </header>
+
+    <!-- Секция 1: Источник данных -->
+    <section class="options__section">
+      <h2 class="options__section-title">Источник данных</h2>
+      <p class="options__section-hint">Откуда загружать реестр заблокированных доменов</p>
+
+      <div class="radio-group" role="radiogroup" aria-label="Источник данных">
+        <label class="radio">
+          <input type="radio" name="dataSource" value="api">
+          <span class="radio__mark"></span>
+          <span class="radio__content">
+            <span class="radio__label">API антизапрет</span>
+            <span class="radio__description">reestr.rublacklist.net</span>
+          </span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" name="dataSource" value="github" checked>
+          <span class="radio__mark"></span>
+          <span class="radio__content">
+            <span class="radio__label">GitHub-дамп</span>
+            <span class="radio__description">zapret-info/z-i</span>
+          </span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" name="dataSource" value="custom">
+          <span class="radio__mark"></span>
+          <span class="radio__content">
+            <span class="radio__label">Свой URL</span>
+          </span>
+        </label>
+
+        <div class="options__custom-url" id="custom-url-group" style="display:none">
+          <input
+            type="url"
+            id="custom-url"
+            class="options__input"
+            placeholder="https://example.com/domains.json"
+            aria-label="URL пользовательского источника"
+          >
+          <p class="options__input-error" id="custom-url-error" hidden>Введите корректный HTTPS URL</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Секция 2: Синхронизация -->
+    <section class="options__section">
+      <h2 class="options__section-title">Синхронизация</h2>
+      <p class="options__section-hint">Как часто проверять обновления реестра</p>
+
+      <div class="options__control-row">
+        <label class="options__label" for="sync-interval">Частота обновления</label>
+        <div class="select-wrapper">
+          <select id="sync-interval" class="options__select">
+            <option value="60">Каждый час</option>
+            <option value="360" selected>Каждые 6 часов</option>
+            <option value="720">Каждые 12 часов</option>
+            <option value="1440">Каждые 24 часа</option>
+            <option value="0">Только вручную</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Секция 3: Уведомления -->
+    <section class="options__section">
+      <h2 class="options__section-title">Уведомления</h2>
+      <p class="options__section-hint">Системное уведомление Chrome при первом заходе на заблокированный домен за сессию</p>
+
+      <div class="options__control-row">
+        <span class="options__label">Показывать уведомления при заходе на заблокированный сайт</span>
+        <label class="toggle" aria-label="Включить уведомления">
+          <input type="checkbox" id="notifications-toggle" checked>
+          <span class="toggle__track">
+            <span class="toggle__thumb"></span>
+          </span>
+          <span class="toggle__label" data-on="ВКЛ" data-off="ВЫКЛ"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Секция 4: Оформление -->
+    <section class="options__section">
+      <h2 class="options__section-title">Оформление</h2>
+      <p class="options__section-hint">Цветовая тема popup и страницы настроек</p>
+
+      <div class="radio-group" role="radiogroup" aria-label="Тема оформления">
+        <label class="radio">
+          <input type="radio" name="theme" value="light">
+          <span class="radio__mark"></span>
+          <span class="radio__label">Светлая тема</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" name="theme" value="dark">
+          <span class="radio__mark"></span>
+          <span class="radio__label">Тёмная тема</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" name="theme" value="system" checked>
+          <span class="radio__mark"></span>
+          <span class="radio__label">Как в системе</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Секция 5: Режим памяти -->
+    <section class="options__section">
+      <h2 class="options__section-title">Режим памяти</h2>
+      <p class="options__section-hint">Для слабых машин — режим экономии памяти снижает потребление RAM в 8 раз</p>
+
+      <div class="options__control-row">
+        <span class="options__label">Экономия памяти (Bloom Filter)</span>
+        <label class="toggle" aria-label="Включить Bloom Filter">
+          <input type="checkbox" id="bloom-toggle">
+          <span class="toggle__track">
+            <span class="toggle__thumb"></span>
+          </span>
+          <span class="toggle__label" data-on="ВКЛ" data-off="ВЫКЛ"></span>
+        </label>
+      </div>
+      <p class="options__memory-hint">Выкл: ~40 МБ, мгновенная проверка | Вкл: ~5 МБ, проверка за ~1мс</p>
+    </section>
+
+    <!-- Секция 6: Управление базой -->
+    <section class="options__section">
+      <h2 class="options__section-title">Управление базой</h2>
+      <p class="options__section-hint">Информация о локальной базе и действия с ней</p>
+
+      <div class="options__db-status" id="db-status">
+        <span>Загрузка...</span>
+      </div>
+
+      <div class="options__btn-grid">
+        <button type="button" class="options__btn options__btn--primary" id="btn-sync-now">
+          Обновить сейчас
+        </button>
+        <button type="button" class="options__btn options__btn--danger" id="btn-clear-db">
+          Очистить базу
+        </button>
+        <button type="button" class="options__btn options__btn--ghost" id="btn-export">
+          Экспорт
+        </button>
+        <button type="button" class="options__btn options__btn--ghost" id="btn-import">
+          Импорт
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="options__footer">
+      <span class="options__version">RKNus v0.1.0</span>
+      <span class="options__footer-sep">|</span>
+      <a href="https://github.com/anarizhny/rknus" target="_blank" rel="noopener" class="options__link">Исходный код</a>
+    </footer>
+  </main>
+
+  <script src="options.js"></script>
+</body>
+</html>

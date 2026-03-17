@@ -1,0 +1,356 @@
+{
+  "appName": {
+    "message": "RKNus",
+    "description": "Extension name"
+  },
+  "appDescription": {
+    "message": "Проверяет, заблокирован ли сайт Роскомнадзором",
+    "description": "Extension description"
+  },
+  "statusBlocked": {
+    "message": "ЗАБЛОКИРОВАН",
+    "description": "Status text when domain is blocked"
+  },
+  "statusClean": {
+    "message": "НЕ ЗАБЛОКИРОВАН",
+    "description": "Status text when domain is clean"
+  },
+  "statusLoading": {
+    "message": "Проверяю...",
+    "description": "Status text while checking"
+  },
+  "labelReason": {
+    "message": "Причина",
+    "description": "Label for block reason"
+  },
+  "labelDate": {
+    "message": "Дата",
+    "description": "Label for block date"
+  },
+  "labelRegistry": {
+    "message": "Реестр",
+    "description": "Label for registry ID"
+  },
+  "statsBase": {
+    "message": "База:",
+    "description": "Database stats label"
+  },
+  "statsDomains": {
+    "message": "доменов",
+    "description": "Domains count suffix"
+  },
+  "statsUpdated": {
+    "message": "Обновлено:",
+    "description": "Last update label"
+  },
+  "statsNever": {
+    "message": "никогда",
+    "description": "Never updated"
+  },
+  "btnSyncBase": {
+    "message": "Обновить базу",
+    "description": "Sync button in popup"
+  },
+  "btnSyncing": {
+    "message": "Обновление...",
+    "description": "Sync in progress"
+  },
+  "btnSyncDone": {
+    "message": "Обновлено \u2713",
+    "description": "Sync completed"
+  },
+  "btnSyncError": {
+    "message": "Ошибка обновления",
+    "description": "Sync failed"
+  },
+  "btnRetry": {
+    "message": "Попробовать снова",
+    "description": "Retry button"
+  },
+  "errorLoadDb": {
+    "message": "Не удалось загрузить базу",
+    "description": "Error loading database"
+  },
+  "errorCheckNetwork": {
+    "message": "Проверьте подключение к интернету",
+    "description": "Network error hint"
+  },
+  "loadingDb": {
+    "message": "Загрузка базы данных...",
+    "description": "Database loading text"
+  },
+  "freshnessActual": {
+    "message": "актуальна",
+    "description": "Freshness: fresh"
+  },
+  "freshnessStale": {
+    "message": "обновление рекомендуется",
+    "description": "Freshness: stale"
+  },
+  "freshnessOutdated": {
+    "message": "устарела",
+    "description": "Freshness: outdated"
+  },
+  "freshnessError": {
+    "message": "ошибка синхронизации",
+    "description": "Freshness: error"
+  },
+  "optionsTitle": {
+    "message": "RKNus — Настройки",
+    "description": "Options page title"
+  },
+  "optionsSectionDataSource": {
+    "message": "ИСТОЧНИК ДАННЫХ",
+    "description": "Data source section title"
+  },
+  "optionsDataSourceApi": {
+    "message": "API антизапрет",
+    "description": "Data source: API"
+  },
+  "optionsDataSourceApiHint": {
+    "message": "reestr.rublacklist.net",
+    "description": "API source hint"
+  },
+  "optionsDataSourceGithub": {
+    "message": "GitHub-дамп",
+    "description": "Data source: GitHub"
+  },
+  "optionsDataSourceGithubHint": {
+    "message": "zapret-info/z-i",
+    "description": "GitHub source hint"
+  },
+  "optionsDataSourceCustom": {
+    "message": "Свой URL",
+    "description": "Data source: Custom"
+  },
+  "optionsDataSourceCustomPlaceholder": {
+    "message": "https://example.com/domains.json",
+    "description": "Custom URL placeholder"
+  },
+  "optionsDataSourceHint": {
+    "message": "Откуда загружать реестр заблокированных доменов",
+    "description": "Data source section hint"
+  },
+  "optionsSectionSync": {
+    "message": "СИНХРОНИЗАЦИЯ",
+    "description": "Sync section title"
+  },
+  "optionsSyncFrequency": {
+    "message": "Частота обновления",
+    "description": "Sync frequency label"
+  },
+  "optionsSyncEveryHour": {
+    "message": "Каждый час",
+    "description": "Sync interval: 1h"
+  },
+  "optionsSyncEvery6Hours": {
+    "message": "Каждые 6 часов",
+    "description": "Sync interval: 6h"
+  },
+  "optionsSyncEvery12Hours": {
+    "message": "Каждые 12 часов",
+    "description": "Sync interval: 12h"
+  },
+  "optionsSyncEvery24Hours": {
+    "message": "Каждые 24 часа",
+    "description": "Sync interval: 24h"
+  },
+  "optionsSyncManual": {
+    "message": "Только вручную",
+    "description": "Sync interval: manual"
+  },
+  "optionsSyncHint": {
+    "message": "Как часто проверять обновления реестра",
+    "description": "Sync section hint"
+  },
+  "optionsSectionNotifications": {
+    "message": "УВЕДОМЛЕНИЯ",
+    "description": "Notifications section title"
+  },
+  "optionsNotificationsLabel": {
+    "message": "Показывать уведомления при заходе на заблокированный сайт",
+    "description": "Notifications toggle label"
+  },
+  "optionsNotificationsHint": {
+    "message": "Системное уведомление Chrome при первом заходе на заблокированный домен за сессию",
+    "description": "Notifications section hint"
+  },
+  "optionsSectionTheme": {
+    "message": "ОФОРМЛЕНИЕ",
+    "description": "Theme section title"
+  },
+  "optionsThemeLight": {
+    "message": "Светлая тема",
+    "description": "Theme: light"
+  },
+  "optionsThemeDark": {
+    "message": "Тёмная тема",
+    "description": "Theme: dark"
+  },
+  "optionsThemeSystem": {
+    "message": "Как в системе",
+    "description": "Theme: system"
+  },
+  "optionsThemeHint": {
+    "message": "Цветовая тема popup и страницы настроек",
+    "description": "Theme section hint"
+  },
+  "optionsSectionMemory": {
+    "message": "РЕЖИМ ПАМЯТИ",
+    "description": "Memory mode section title"
+  },
+  "optionsMemoryFull": {
+    "message": "Полная база в RAM",
+    "description": "Memory: full"
+  },
+  "optionsMemoryFullHint": {
+    "message": "~40 МБ, мгновенная проверка",
+    "description": "Full RAM mode hint"
+  },
+  "optionsMemoryBloom": {
+    "message": "Экономия памяти (Bloom Filter)",
+    "description": "Memory: bloom filter"
+  },
+  "optionsMemoryBloomHint": {
+    "message": "~5 МБ, проверка за ~1мс",
+    "description": "Bloom filter mode hint"
+  },
+  "optionsMemoryHint": {
+    "message": "Для слабых машин — режим экономии памяти снижает потребление RAM в 8 раз",
+    "description": "Memory section hint"
+  },
+  "optionsSectionDatabase": {
+    "message": "УПРАВЛЕНИЕ БАЗОЙ",
+    "description": "Database management section title"
+  },
+  "btnSyncNow": {
+    "message": "Обновить сейчас",
+    "description": "Force sync button"
+  },
+  "btnClearDb": {
+    "message": "Очистить базу",
+    "description": "Clear database button"
+  },
+  "btnExport": {
+    "message": "Экспорт",
+    "description": "Export button"
+  },
+  "btnImport": {
+    "message": "Импорт",
+    "description": "Import button"
+  },
+  "confirmClearDb": {
+    "message": "Удалить все данные? База будет загружена заново при следующей синхронизации.",
+    "description": "Clear DB confirmation"
+  },
+  "toastSaved": {
+    "message": "Сохранено",
+    "description": "Settings saved toast"
+  },
+  "toastDbCleared": {
+    "message": "База очищена",
+    "description": "Database cleared toast"
+  },
+  "toastSyncStarted": {
+    "message": "Синхронизация запущена",
+    "description": "Sync started toast"
+  },
+  "toastExportDone": {
+    "message": "Экспорт завершён",
+    "description": "Export done toast"
+  },
+  "toastImportDone": {
+    "message": "Импорт завершён",
+    "description": "Import done toast"
+  },
+  "toastImportError": {
+    "message": "Ошибка импорта: неверный формат файла",
+    "description": "Import error toast"
+  },
+  "toggleOn": {
+    "message": "ВКЛ",
+    "description": "Toggle on label"
+  },
+  "toggleOff": {
+    "message": "ВЫКЛ",
+    "description": "Toggle off label"
+  },
+  "notificationTitle": {
+    "message": "Сайт в реестре РКН",
+    "description": "Notification title for blocked domain"
+  },
+  "notificationMessage": {
+    "message": "$DOMAIN$ находится в реестре заблокированных ресурсов",
+    "description": "Notification message body",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "example.com"
+      }
+    }
+  },
+  "notificationBtnDetails": {
+    "message": "Подробнее",
+    "description": "Notification button: details"
+  },
+  "notificationBtnDisable": {
+    "message": "Не напоминать",
+    "description": "Notification button: disable"
+  },
+  "edgeCaseServicePage": {
+    "message": "Служебная страница",
+    "description": "Edge case status for chrome:// pages"
+  },
+  "edgeCaseNoSite": {
+    "message": "Нет сайта для проверки",
+    "description": "Edge case status for about:blank"
+  },
+  "edgeCaseLocalFile": {
+    "message": "Проверка недоступна",
+    "description": "Edge case status for file://"
+  },
+  "edgeCaseIpAddress": {
+    "message": "IP-адрес",
+    "description": "Edge case status for IP addresses"
+  },
+  "edgeCaseLocalhost": {
+    "message": "Локальный сервер",
+    "description": "Edge case status for localhost"
+  },
+  "edgeCaseInvalid": {
+    "message": "Некорректный адрес",
+    "description": "Edge case status for invalid URLs"
+  },
+  "edgeCaseHintChrome": {
+    "message": "Проверка недоступна для внутренних страниц браузера",
+    "description": "Edge case hint for chrome:// pages"
+  },
+  "edgeCaseHintAbout": {
+    "message": "Откройте любой сайт, чтобы проверить его статус",
+    "description": "Edge case hint for about:blank"
+  },
+  "edgeCaseHintFile": {
+    "message": "Расширение проверяет только интернет-сайты",
+    "description": "Edge case hint for file://"
+  },
+  "edgeCaseHintIp": {
+    "message": "Реестр РКН содержит только доменные имена",
+    "description": "Edge case hint for IP addresses"
+  },
+  "edgeCaseHintLocalhost": {
+    "message": "Проверка недоступна для локальных адресов",
+    "description": "Edge case hint for localhost"
+  },
+  "edgeCaseHintDataUri": {
+    "message": "Откройте любой сайт, чтобы проверить его статус",
+    "description": "Edge case hint for data: URIs"
+  },
+  "edgeCaseHintInvalid": {
+    "message": "Не удалось разобрать адрес страницы",
+    "description": "Edge case hint for invalid URLs"
+  },
+  "footerSourceCode": {
+    "message": "Исходный код",
+    "description": "Footer link to source code"
+  }
+}

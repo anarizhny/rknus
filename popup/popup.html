@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RKNus</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <!-- Состояние: BLOCKED -->
+  <div id="state-blocked" class="state" style="display:none">
+    <div class="popup__header">
+      <span class="popup__indicator popup__indicator--blocked"></span>
+      <span id="blocked-domain" class="popup__domain">example.com</span>
+    </div>
+
+    <div class="popup__status popup__status--blocked">
+      <span class="popup__status-text">ЗАБЛОКИРОВАН</span>
+    </div>
+
+    <dl class="popup__details">
+      <div class="popup__details-row">
+        <dt class="popup__details-label">Причина</dt>
+        <dd id="blocked-reason" class="popup__details-value">—</dd>
+      </div>
+      <div class="popup__details-row">
+        <dt class="popup__details-label">Дата</dt>
+        <dd id="blocked-date" class="popup__details-value">—</dd>
+      </div>
+      <div class="popup__details-row">
+        <dt class="popup__details-label">Реестр</dt>
+        <dd id="blocked-id" class="popup__details-value">—</dd>
+      </div>
+    </dl>
+
+    <hr class="popup__divider">
+
+    <div class="popup__stats">
+      <p class="popup__stats-row">
+        <span class="popup__stats-icon">&#x1F4E6;</span>
+        База: <strong id="blocked-db-count">—</strong> доменов
+      </p>
+      <p class="popup__stats-row">
+        <span class="popup__stats-icon">&#x1F552;</span>
+        Обновлено: <span id="blocked-db-updated">—</span>
+      </p>
+      <p class="popup__stats-row">
+        <span class="popup__freshness-dot" id="blocked-freshness-dot"></span>
+        <span id="blocked-freshness-text">—</span>
+      </p>
+    </div>
+
+    <button id="btn-sync-blocked" class="popup__btn" type="button">Обновить базу</button>
+  </div>
+
+  <!-- Состояние: CLEAN -->
+  <div id="state-clean" class="state" style="display:none">
+    <div class="popup__header">
+      <span class="popup__indicator popup__indicator--clean"></span>
+      <span id="clean-domain" class="popup__domain">example.com</span>
+    </div>
+
+    <div class="popup__status popup__status--clean">
+      <span class="popup__status-text">НЕ ЗАБЛОКИРОВАН</span>
+    </div>
+
+    <hr class="popup__divider">
+
+    <div class="popup__stats">
+      <p class="popup__stats-row">
+        <span class="popup__stats-icon">&#x1F4E6;</span>
+        База: <strong id="clean-db-count">—</strong> доменов
+      </p>
+      <p class="popup__stats-row">
+        <span class="popup__stats-icon">&#x1F552;</span>
+        Обновлено: <span id="clean-db-updated">—</span>
+      </p>
+      <p class="popup__stats-row">
+        <span class="popup__freshness-dot" id="clean-freshness-dot"></span>
+        <span id="clean-freshness-text">—</span>
+      </p>
+    </div>
+
+    <button id="btn-sync-clean" class="popup__btn" type="button">Обновить базу</button>
+  </div>
+
+  <!-- Состояние: NOT-APPLICABLE (edge-cases) -->
+  <div id="state-not-applicable" class="state" style="display:none">
+    <div class="popup__header">
+      <span class="popup__indicator popup__indicator--na"></span>
+      <span id="na-domain" class="popup__domain"></span>
+    </div>
+
+    <div class="popup__status popup__status--na">
+      <span id="na-status" class="popup__status-text"></span>
+    </div>
+
+    <p id="na-hint" class="popup__na-hint"></p>
+
+    <hr class="popup__divider">
+
+    <div class="popup__stats">
+      <p class="popup__stats-row">
+        <span class="popup__stats-icon">&#x1F4E6;</span>
+        База: <strong id="na-db-count">—</strong> доменов
+      </p>
+      <p class="popup__stats-row">
+        <span class="popup__stats-icon">&#x1F552;</span>
+        Обновлено: <span id="na-db-updated">—</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Состояние: LOADING -->
+  <div id="state-loading" class="state" style="display:none">
+    <div class="popup__center">
+      <div class="popup__spinner"></div>
+      <p class="popup__loading-text">Проверяю...</p>
+    </div>
+  </div>
+
+  <!-- Состояние: ERROR -->
+  <div id="state-error" class="state" style="display:none">
+    <div class="popup__center">
+      <div class="popup__error-icon">&#x2716;</div>
+      <p id="error-message" class="popup__error-text">Не удалось загрузить базу</p>
+      <p class="popup__error-hint">Проверьте подключение к интернету</p>
+      <button id="btn-retry" class="popup__btn popup__btn--primary" type="button">Попробовать снова</button>
+    </div>
+  </div>
+
+  <!-- Состояние: EMPTY-DB -->
+  <div id="state-empty-db" class="state" style="display:none">
+    <div class="popup__center">
+      <p class="popup__loading-text">Загрузка базы данных...</p>
+      <div class="popup__progress">
+        <div id="progress-bar" class="popup__progress-bar" style="width:0%"></div>
+      </div>
+      <p id="progress-text" class="popup__progress-text">0%</p>
+    </div>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
