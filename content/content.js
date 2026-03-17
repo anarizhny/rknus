@@ -10,21 +10,6 @@
 (function () {
   'use strict';
 
-  // --- Check if content script is enabled in settings ---
-
-  /**
-   * Read contentScriptEnabled from chrome.storage.sync.
-   * Default: true (enabled).
-   * @returns {Promise<boolean>}
-   */
-  function isContentScriptEnabled() {
-    return new Promise((resolve) => {
-      chrome.storage.sync.get({ contentScriptEnabled: true }, (result) => {
-        resolve(result.contentScriptEnabled);
-      });
-    });
-  }
-
   // --- DEV-S6-03: Shadow DOM ---
 
   /** @type {ShadowRoot|null} */
@@ -313,24 +298,15 @@
   // --- Main ---
 
   async function main() {
-    // Check if content script is enabled
-    const enabled = await isContentScriptEnabled();
-    if (!enabled) return;
+    // Content script is only injected on blocked sites by background.js,
+    // so we always show the banner. Extract domain from page hostname.
+    const domain = location.hostname.replace(/^www\./, '').toLowerCase();
 
-    // DEV-S6-01: Check if the current site is blocked
-    chrome.runtime.sendMessage({ type: 'checkCurrentSite' }, (response) => {
-      if (chrome.runtime.lastError) {
-        console.warn('[rknus] checkCurrentSite error:', chrome.runtime.lastError.message);
-        return;
-      }
+    // Don't show if already dismissed this session
+    showBanner(domain);
 
-      if (response && response.blocked) {
-        showBanner(response.domain);
-      }
-
-      // DEV-S6-02: After checking current site, scan links on the page
-      scanLinks();
-    });
+    // DEV-S6-02: Scan links on the page for other blocked domains
+    scanLinks();
   }
 
   /**

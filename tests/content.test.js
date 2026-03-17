@@ -163,8 +163,6 @@ describe('normalizeDomain — used before lookup', () => {
 // ─── Content script import smoke test ───
 
 describe('content.js — smoke test (import does not crash)', () => {
-  let originalDocument;
-
   beforeEach(() => {
     // Set up minimal DOM globals that content.js needs
     globalThis.sessionStorage = {
@@ -172,17 +170,13 @@ describe('content.js — smoke test (import does not crash)', () => {
       setItem: vi.fn(),
     };
 
-    // Mock chrome API
+    // Mock chrome API — content script no longer checks contentScriptEnabled
+    // (that check moved to background.js which decides whether to inject)
     globalThis.chrome = {
-      storage: {
-        sync: {
-          get: vi.fn((defaults, cb) => {
-            cb({ contentScriptEnabled: false }); // disabled so script exits early
-          }),
-        },
-      },
       runtime: {
-        sendMessage: vi.fn(),
+        sendMessage: vi.fn((msg, cb) => {
+          if (cb) cb({});
+        }),
         lastError: null,
       },
     };
@@ -192,6 +186,7 @@ describe('content.js — smoke test (import does not crash)', () => {
       readyState: 'complete',
       createElement: vi.fn(() => ({
         style: {},
+        cssText: '',
         className: '',
         textContent: '',
         title: '',
@@ -211,7 +206,7 @@ describe('content.js — smoke test (import does not crash)', () => {
       addEventListener: vi.fn(),
     };
 
-    globalThis.location = { href: 'https://example.com' };
+    globalThis.location = { href: 'https://example.com', hostname: 'example.com' };
     globalThis.window = { innerWidth: 1920 };
     globalThis.requestIdleCallback = undefined;
   });
@@ -225,16 +220,17 @@ describe('content.js — smoke test (import does not crash)', () => {
     delete globalThis.requestIdleCallback;
   });
 
-  it('content.js loads without throwing when contentScriptEnabled=false', async () => {
+  it('content.js loads without throwing (injected only on blocked sites)', async () => {
     // content.js is an IIFE — importing it will execute it.
-    // With contentScriptEnabled=false, it should exit early and not crash.
+    // It's now only injected by background.js on blocked sites,
+    // so it always shows the banner and scans links.
     await expect(
       import('../content/content.js?' + Date.now())
     ).resolves.not.toThrow();
   });
 
-  it('chrome.storage.sync.get is called to check contentScriptEnabled', async () => {
+  it('shows banner by calling document.createElement (since site is blocked)', async () => {
     await import('../content/content.js?' + Date.now() + 1);
-    expect(globalThis.chrome.storage.sync.get).toHaveBeenCalled();
+    expect(globalThis.document.createElement).toHaveBeenCalled();
   });
 });

@@ -238,6 +238,39 @@ chrome.notifications.onClicked.addListener((notificationId) => {
   chrome.notifications.clear(notificationId);
 });
 
+// --- DEV-S6: Programmatic content script injection ---
+
+/**
+ * Inject content script and CSS into a tab (only for blocked sites).
+ * Uses chrome.scripting API instead of declarative content_scripts
+ * to avoid requesting <all_urls> permission.
+ * @param {number} tabId
+ * @param {string} domain — the blocked domain name
+ */
+async function injectContentScript(tabId, domain) {
+  try {
+    // Check if content script is enabled in settings
+    const { contentScriptEnabled } = await chrome.storage.sync.get({ contentScriptEnabled: true });
+    if (!contentScriptEnabled) return;
+
+    // Inject CSS first, then JS
+    await chrome.scripting.insertCSS({
+      target: { tabId },
+      files: ['content/content.css'],
+    });
+
+    await chrome.scripting.executeScript({
+      target: { tabId },
+      files: ['content/content.js'],
+    });
+
+    console.log(`[rknus] Content script injected into tab ${tabId} for ${domain}`);
+  } catch (err) {
+    // Expected to fail on chrome:// pages, etc.
+    console.debug(`[rknus] Could not inject content script: ${err.message}`);
+  }
+}
+
 // --- Core logic ---
 
 /**
@@ -274,6 +307,9 @@ async function handleTab(tabId) {
 
       // DEV-S4-02: Show notification
       notifyBlocked(result.domain);
+
+      // DEV-S6: Inject content script on blocked sites only
+      injectContentScript(tabId, result.domain);
     } else {
       setBadgeClean(tabId);
     }
